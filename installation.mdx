@@ -1,0 +1,97 @@
+---
+title: "Installation"
+description: "Let's get Discord UI Kit installed!"
+---
+
+## Where is it available?
+
+Discord UI Kit is only available on [JSR](https://jsr.io), a next-level registry for JavaScript and TypeScript that builds off NPM.
+
+That isn't to say you can't use NPM or similar though. You absolutely can!
+
+## Main Installation
+
+First, figure out what library you're using for Discord
+_(e.g. discord.js, eris, discordeno, etc.)_
+
+Then, install the corresponding package via JSR using your favorite package manager! Let's assume your using `discord.js` for this example.
+
+<Tabs>
+    <Tab title="NPM" icon="npm">
+    ```bash
+    npx jsr add @discord-ui-kit/discord.js
+    ```
+    </Tab>
+    <Tab title="Yarn (modern, 4.9+)" icon="yarn">
+        ```bash
+        yarn add jsr:@discord-ui-kit/discord.js
+        ```
+    </Tab>
+    <Tab title="Yarn (before 4.9)" icon="yarn">
+        ```bash
+        yarn dlx jsr add @discord-ui-kit/discord.js
+        ```
+    </Tab>
+    <Tab title="PNPM (modern, 10.9+)">
+        ```bash
+        pnpm add jsr:@discord-ui-kit/discord.js
+        ```
+    </Tab>
+    <Tab title="PNPM (before 10.9)">
+        ```bash
+        pnpm dlx jsr add @discord-ui-kit/discord.js
+        ```
+    </Tab>
+    <Tab title="Deno">
+        ```bash
+        deno add jsr:@discord-ui-kit/discord.js
+        ```
+    </Tab>
+    <Tab title="Bun">
+        ```bash
+        bunx jsr add @discord-ui-kit/discord.js
+        ```
+    </Tab>
+</Tabs>
+
+**There are many others for Eris, Discordeno and similar though.**
+
+After that, you can import the package just like any other one, like this! CommonJS is not supported though, due to JSR standards. If you're using CommonJS, you'll have to use this package differently.
+
+<Tabs>
+    <Tab title="JavaScript (ESM)" icon="js">
+        ```javascript index.js
+        import { UiClient } from "@discord-ui-kit/discord.js";
+        ```
+    </Tab>
+    <Tab title="JavaScript (CommonJS) (Not Recommended!)" icon="js">
+        CommonJS does not allow using import, unless you await it.
+        
+        **Here's an example of how to do that, but you can do it in any async function:**
+
+        ```javascript index.cjs
+        (async () => {
+            const { UiClient } = await import("@discord-ui-kit/discord.js");
+
+            // Then use UiClient.
+        })();
+        ```
+    </Tab>
+    <Tab title="TypeScript" icon="microsoft">
+        ```typescript index.ts
+        import { UiClient } from "@discord-ui-kit/discord.js";
+        ```
+
+        Also make sure this is in your `tsconfig.json`:
+
+        ```json tsconfig.json
+        {
+            "compilerOptions": {
+                "module": "ESNext"
+            }
+        }
+        ```
+    </Tab>
+</Tabs>
+
+That's it! Go ahead and head to the quickstart and get started!

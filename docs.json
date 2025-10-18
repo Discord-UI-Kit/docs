@@ -1,0 +1,51 @@
+{
+    "$schema": "https://mintlify.com/docs.json",
+    "theme": "linden",
+    "name": "Discord UI Kit",
+    "colors": {
+        "primary": "#166FA3",
+        "light": "#077BC9",
+        "dark": "#155B80"
+    },
+    "favicon": "/favicon.svg",
+    "navigation": {
+        "tabs": [
+            {
+                "tab": "Guides",
+                "groups": [
+                    {
+                        "group": "Getting started",
+                        "pages": ["index", "installation", "quickstart"]
+                    },
+                    {
+                        "group": "Customization",
+                        "pages": ["customization/customizing-emojis", "customization/changing-includes"]
+                    }
+                ]
+            }
+        ]
+    },
+    "logo": {
+        "light": "/logo/light.svg",
+        "dark": "/logo/dark.svg"
+    },
+    "navbar": {
+        "primary": {
+            "type": "button",
+            "label": "Dashboard",
+            "href": "https://dashboard.mintlify.com"
+        }
+    },
+    "footer": {
+        "socials": {
+            "github": "https://github.com/Discord-UI-Kit"
+        }
+    },
+    "errors": {
+        "404": {
+            "redirect": false,
+            "title": "That's a swing and a miss!",
+            "description": "Seems that wasn't found. Try again?"
+        }
+    }
+}

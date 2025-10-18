@@ -1,0 +1,43 @@
+---
+title: "Welcome!"
+description: "Welcome to the documentation for Discord UI Kit!"
+---
+
+## Features of using Discord UI Kit
+
+<CardGroup cols={2}>
+  <Card title="Fully FOSS" icon="copy">
+    We pride ourselves on FOSS (Free & Open Source software). Discord UI Kit is no exception to that!
+
+    We release this package under the [Unlicense](https://unlicense.org) so you can do whatever you want without worrying about legal issues!
+
+  </Card>
+  <Card title="Boilerplate, be gone!" icon="circle-xmark">
+    No more having to do this:
+
+    ```typescript
+    const button = new ButtonBuilder()
+      .setCustomId("whatever")
+      .setLabel("Whatever :(")
+      .setStyle(ButtonStyle.Primary)
+      // Then whatever here...
+    ```
+
+    Just use what we export:
+
+    ```typescript
+    const button = ui.buttons
+      .primary("whatever", "Whatever! :)");
+    ```
+  </Card>
+  <Card title="Extremely Customizable" icon="palette">
+    Don't like some of the emojis we export? You can change them easily by [extending our base emojis class](/customization/customizing-emojis)!
+    
+    You can even tell the library [what to include](/)!
+  </Card>
+  <Card title="Framework-agnostic" icon="home">
+    Whether you use `discord.js` or `eris`, `discordeno` or `harmony`, you can use this UI Kit for your projects!
+
+    We don't judge on what library you like best, just that it works for you!
+  </Card>
+</CardGroup>

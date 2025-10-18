@@ -1,0 +1,23 @@
+---
+title: "Changing Includes"
+description: "Don't want everything to be available? Just include what you need!"
+---
+
+Let's say you only need our buttons kit. Well, that's easy to configure!
+
+Let's get started!
+
+```typescript index.ts
+import { UiClient, Includes } from "@discord-ui-kit/discord.js";
+
+const ui = new UiClient({
+    include: [Includes.Buttons]
+});
+
+ui.buttons // Valid
+ui.selectMenus // Invalid! Error!
+```
+
+<Note>Action Rows are **always included** with this library.</Note>
+
+<Warning>Anything **not** included will not be accessible _(besides action rows)_!</Warning>

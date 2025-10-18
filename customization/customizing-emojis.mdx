@@ -1,0 +1,144 @@
+---
+title: "Customizing Emojis"
+description: "Getting bored of the default emojis? Well, let's change that by customizing the defaults!"
+---
+
+First, make sure you've gone through at least the [Quickstart](/quickstart) and/or know how to use this library. If you do, then let's go!
+
+**First, let's create a new file called `CustomEmojis.ts` _(or `CustomEmojis.js`, if you're using JavaScript)_.**
+
+<Tabs>
+    <Tab title="JavaScript File Creation">
+        ```bash
+        touch CustomEmojis.js
+        ```
+    </Tab>
+    <Tab title="TypeScript File Creation">
+        ```bash
+        touch CustomEmojis.ts
+        ```
+    </Tab>
+</Tabs>
+
+Now, let's extend the base emojis!
+
+<Danger>
+Not doing this will result in either:
+    - **Runtime issues (if using JavaScript)**
+    - **A compile-time error (if using TypeScript)**
+
+Remember to extend the class!
+</Danger>
+
+```typescript CustomEmojis.ts
+import { UiEmojiBase } from "@discord-ui-kit/core";
+
+export class CustomEmojis extends UiEmojiBase {
+    // I want a custom check mark emoji, but how do I do that?
+    // Let's keep reading!
+}
+```
+
+Okay, we've overriden the class. But... how do we change the emojis? Well... every emoji in the base is just one `getter` method. The same should apply to this class.
+
+<Accordion title="What are getter methods?">
+Good question! Let's say you don't want people to change something very, very important to your project. Like your bot token!
+
+```typescript MyBot.ts
+export class MyBot {
+    token: string; // Uh oh! Someone can tamper with this!
+
+    constructor(token: string) {
+        this.token = token;
+    }
+}
+```
+
+One way we can fix this is by making it `private`.
+
+```typescript MyBot.ts
+export class MyBot {
+    private _token: string; // No one can tamper with it now, but... we can't access it outside of here!
+
+    constructor(token: string) {
+        this._token = token;
+    }
+}
+```
+
+But now we can't access it at all! We can use a getter method to be able to grab our token and use it for whatever though!
+
+```typescript MyBot.ts
+export class MyBot {
+    private _token: string;
+
+    constructor(token: string) {
+        this._token = token;
+    }
+
+    // Now we can access it!
+    public get token() {
+        return this._token;
+    }
+}
+```
+
+<Note>It's probably better to make the field `public` and `readonly`, but this is just an example.</Note>
+
+Now we can actually only **`GET`** that field and not tamper with it! One other cool thing about getter methods is they're exposed just like properties:
+
+```typescript index.ts
+const bot = new MyBot("some-token-here");
+
+console.log(bot.token) // some-token-here
+```
+
+The UI library uses these instead of `public readonly` fields for the sake of making them easy to override.
+</Accordion>
+
+Let's override the check mark emoji!
+
+```typescript CustomEmojis.ts
+import { UiEmojiBase } from "@discord-ui-kit/core";
+
+export default class CustomEmojis extends UiEmojiBase {
+    public override get checkMark() {
+        return "<:my_check_mark:1938129019>";
+    }
+}
+```
+
+<Note>Anything not overriden will stay with the default, so you don't have to override everything unless you want to.</Note>
+
+Here, we've put `override` on the `checkMark` getter method. We're then returning a custom emoji string. This should correspond to an emoji on Discord, whether a default one or a custom one.
+
+<Accordion title="What emojis are supported?">
+It depends on your library, but in general, every library **SHOULD** be able to support:
+
+- Unicode characters (e.g. ✅)
+- Emoji Strings (e.g. `:white_check_mark:`)
+- Raw emojis (e.g. `<:my_check_mark:1938129019>`)
+
+If your emoji is a custom one (aka, not a default one like `:white_check_mark:`), there are two conditions for using it.
+
+- A. Your bot **has** to be a part of the server where the emoji lives.
+
+**AND**
+
+- B. Your bot **has** to be invited with the `Use External Emojis` permission.
+
+Otherwise, they won't work.
+</Accordion>
+
+Now, we gotta attach this to our client.
+
+```typescript index.ts
+// ...
+import CustomEmojis from "./CustomEmojis";
+
+const ui = new UiClient({
+    emojis: new CustomEmojis()
+});
+```
+
+And boom! The UI kit will use your emoji class instead of the defaults!
