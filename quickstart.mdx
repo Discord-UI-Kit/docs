@@ -43,7 +43,7 @@ await message.reply({
 Let's see how this package saves your command:
 
 ```typescript
-const ui = new UiCore();
+const ui = new UiClient();
 
 // This will give us an ActionRowBuilder with a confirm
 // and decline button automatically!
@@ -63,8 +63,9 @@ so you can start working smarter, not harder!
 
 ## Adding to your project
 
-Discord UI Kit is available on [JSR](https://jsr.io), and JSR only. That doesn't mean you can't use it while using NPM, Yarn, PNPM or similar though!
-JSR supports all of those, even Bun!
+Discord UI Kit is available on [JSR](https://jsr.io), and JSR only. That doesn't mean you can't use it
+while using NPM, Yarn, PNPM or similar though! JSR supports all of those,
+even Bun!
 
 Read through the [installation guide](/installation), then come back here.
 
@@ -111,26 +112,31 @@ client.login("whatever-token-here");
 ```
 
 <Accordion title="But this package only exposes pre-made action rows? Why do that only?">
-You might be asking that, since you've seen the same method twice now.
-The truth is, it **doesn't** only expose pre-made action rows! Here, let's create a custom action row with multiple buttons!
+    You might be asking that, since you've seen the same method twice now.
+    The truth is, it **doesn't** only expose pre-made action rows! Here, let's create a custom action row with multiple buttons!
 
-```typescript index.ts
-/// ...
+    ```typescript index.ts
+    /// ...
 
-client.on(Events.MessageCreate, async (message) => {
-    if (message.content === "!bots") {
-        const actionRow = ui.actionRows.multiComponents(
-            ui.buttons.success("best", "They're the best! :D"),
-            ui.buttons.primary("awesome", "Awesome!"),
-            ui.buttons.secondary("okay", "They're okay."),
-            ui.buttons.danger("nope", "I hate them. >:(")
-        )
+    client.on(Events.MessageCreate, async (message) => {
+        if (message.content === "!bots") {
+            const actionRow = ui.actionRows.multiComponents(
+                ui.buttons.success("best", "They're the best! :D"),
+                ui.buttons.primary("awesome", "Awesome!"),
+                ui.buttons.secondary("okay", "They're okay."),
+                ui.buttons.danger("nope", "I hate them. >:("),
+            );
 
-        await message.reply({
-            content: "**Survey:** What is your opinion on robots?",
-            components: [actionRow]
-        })
-    }
-});
-```
+            await message.reply({
+                content: "**Survey:** What is your opinion on robots?",
+                components: [actionRow],
+            });
+        }
+    });
+    ```
+
+    <Info>Learn more about what is available within our action row builders [here](/available-builders/action-row)!</Info>
+
 </Accordion>
+
+After that, you're ready to use Discord UI Kit! Feel free to see [what else we expose](/available-builders)!

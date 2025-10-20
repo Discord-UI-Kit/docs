@@ -1,0 +1,168 @@
+---
+title: "Button"
+description: "A button is, well... a simple thing on Discord you can click! Let's see how Discord UI Kit exposes it!"
+---
+
+<Warning>
+    This requires `Buttons` to be part of your includes. If you initialized
+    `UiClient` without any includes, it's included anyway, alongside everything
+    else.
+</Warning>
+
+## Discord Button Types
+
+Discord UI Kit exposes methods for all types of buttons (Primary, Secondary, Danger, etc.). We're gonna showcase each one and how to make it work. Use whichever dropdown you care about.
+
+<AccordionGroup>
+    <Accordion title="Primary">
+        This is a button with a nice blue background, best for most applications of any button.
+
+        ```typescript userInformation.ts
+        async function userInformationCommand(message: Message) {
+            // Intakes a custom ID (used for you to get what was clicked)
+            // and a label or options (AKA, what is shown to the user).
+            const button = ui.buttons.primary("next", "Next Page");
+
+            // This could also be written like:
+            // const button = ui.buttons.primary("next", { label: "Next Page" });
+            // if you prefer that. :)
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.singleComponent(button);
+
+            const embed = ui.embeds./* ... */;
+
+            await message.reply({
+                components: [actionRow],
+                embeds: [embed]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Secondary">
+        This is a button with a grey background, used for any sort of other option.
+
+        ```typescript userInformation.ts
+        async function userInformationCommand(message: Message) {
+            const nextButton = ui.buttons.primary("next", "Next Page");
+
+            // Intakes the same arguments as primary. A custom ID and a label or options.
+            const stopButton = ui.buttons.secondary("stop", "Exit");
+
+            // This could also be written like:
+            // const stopButton = ui.buttons.secondary("stop", { label: "Exit" });
+            // if you prefer that. :)
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.multiComponents(
+                nextButton,
+                stopButton
+            );
+
+            const embed = ui.embeds./* ... */;
+
+            await message.reply({
+                components: [actionRow],
+                embeds: [embed]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Danger">
+        A quite angry fellow, a button with a red background. Used for dangerous actions (e.g. Deleting an account).
+
+        ```typescript deleteAccount.ts
+        async function deleteAccountCommand(message: Message) {
+            const deleteButton = ui.buttons.danger("delete", "Delete Account");
+
+            // This could also be written like:
+            // const deleteButton = ui.buttons.danger("delete", { label: "Delete Account" });
+            // if you prefer that. :)
+
+            const cancelButton = ui.buttons.secondary("cancel", "Wait, that was a mistake!");
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.multiComponents(
+                deleteButton,
+                cancelButton
+            );
+
+            await message.reply({
+                components: [actionRow],
+                content: "Are you sure you want to leave me?",
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Success">
+        Gotta feel good about this one! This is a button with a green background, used when this is for something good.
+
+        ```typescript freeMoney.ts
+        async function freeMoneyCommand(message: Message) {
+            const yesButton = ui.buttons.success("yes", "Oh, yes! Please!");
+
+            // This could also be written like:
+            // const yesButton = ui.buttons.success("yes", { label: "Oh, yes! Please!" });
+            // if you prefer that. :)
+
+            const noButton = ui.buttons.secondary("no", "Sorry, I'm not a walking product.");
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.multiComponents(
+                yesButton,
+                noButton
+            );
+
+            await message.reply({
+                components: [actionRow],
+                content: "A special offer for $1 million just came in! Accept it before it's gone!",
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Link">
+        Got a website? This button looks like the Secondary button, but links to a website that you enter in!
+
+        ```typescript privacy.ts
+        async function privacyCommand(message: Message) {
+            const privacyLinkButton = ui.buttons.link("https://example.com", "Privacy Policy");
+
+            // This could also be written like:
+            // const privacyLinkButton = ui.buttons.link("https://example.com", { label: "Privacy Policy" });
+            // if you prefer that. :)
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.singleComponent(privacyLinkButton);
+
+            await message.reply({
+                components: [actionRow],
+                content: "View our privacy policy using the button below!"
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Premium">
+        And now... the final one. This one links to something end-users can buy, like a premium subscription or something!
+
+        ```typescript premium.ts
+        async function premiumCommand(message: Message) {
+            // This intakes a unique argument. This needs to be a SKU (Stock Keeping Unit) ID.
+            // You can find whatever SKU you want on your developer portal.
+            const buyPremiumButton = ui.buttons.premium("192892108321901219", "Buy Premium");
+
+            // This could also be written like:
+            // const buyPremiumButton = ui.buttons.premium("192892108321901219", { label: "Buy Premium" });
+            // if you prefer that. :)
+
+            // All components have to be in an action row!
+            const actionRow = ui.actionRows.singleComponent(buyPremiumButton);
+
+            await message.reply({
+                components: [actionRow],
+                content: "Buy our _super cheap_ $50 a month premium subscription using the button below!"
+            });
+        }
+        ```
+    </Accordion>
+
+</AccordionGroup>

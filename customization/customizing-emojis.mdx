@@ -31,9 +31,9 @@ Remember to extend the class!
 </Danger>
 
 ```typescript CustomEmojis.ts
-import { UiEmojiBase } from "@discord-ui-kit/core";
+import { UiEmojiBase } from "@discord-ui-kit/discord.js";
 
-export class CustomEmojis extends UiEmojiBase {
+export default class CustomEmojis extends UiEmojiBase {
     // I want a custom check mark emoji, but how do I do that?
     // Let's keep reading!
 }
@@ -66,7 +66,7 @@ export class MyBot {
 }
 ```
 
-But now we can't access it at all! We can use a getter method to be able to grab our token and use it for whatever though!
+But now we can't access it at all outside the class! We can use a getter method to be able to grab our token and use it for whatever though!
 
 ```typescript MyBot.ts
 export class MyBot {
@@ -96,10 +96,10 @@ console.log(bot.token) // some-token-here
 The UI library uses these instead of `public readonly` fields for the sake of making them easy to override.
 </Accordion>
 
-Let's override the check mark emoji!
+Let's override the check mark emoji then!
 
 ```typescript CustomEmojis.ts
-import { UiEmojiBase } from "@discord-ui-kit/core";
+import { UiEmojiBase } from "@discord-ui-kit/discord.js";
 
 export default class CustomEmojis extends UiEmojiBase {
     public override get checkMark() {

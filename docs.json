@@ -14,12 +14,41 @@
                 "tab": "Guides",
                 "groups": [
                     {
-                        "group": "Getting started",
-                        "pages": ["index", "installation", "quickstart"]
+                        "group": "Getting Started",
+                        "pages": [
+                            "index",
+                            "installation",
+                            "quickstart",
+                            "questions"
+                        ]
                     },
                     {
                         "group": "Customization",
-                        "pages": ["customization/customizing-emojis", "customization/changing-includes"]
+                        "pages": [
+                            "customization/customizing-colors",
+                            "customization/customizing-emojis",
+                            "customization/changing-includes"
+                        ]
+                    },
+                    {
+                        "group": "Best Practices",
+                        "pages": ["best-practices/only-one-instance"]
+                    }
+                ]
+            },
+            {
+                "tab": "Available Builders",
+                "groups": [
+                    {
+                        "group": "Available Builders",
+                        "pages": [
+                            "available-builders/index",
+                            "available-builders/action-row",
+                            "available-builders/button",
+                            "available-builders/embed",
+                            "available-builders/modal",
+                            "available-builders/select-menu"
+                        ]
                     }
                 ]
             }
@@ -29,23 +58,49 @@
         "light": "/logo/light.svg",
         "dark": "/logo/dark.svg"
     },
-    "navbar": {
-        "primary": {
-            "type": "button",
-            "label": "Dashboard",
-            "href": "https://dashboard.mintlify.com"
-        }
-    },
     "footer": {
         "socials": {
             "github": "https://github.com/Discord-UI-Kit"
-        }
+        },
+        "links": [
+            {
+                "header": "Repositories",
+                "items": [
+                    {
+                        "label": "Codeberg",
+                        "href": "https://codeberg.org/Discord-UI-Kit/Discord-UI-Kit/"
+                    },
+                    {
+                        "label": "GitHub",
+                        "href": "https://github.com/Discord-UI-Kit/main"
+                    }
+                ]
+            },
+            {
+                "header": "Socials",
+                "items": [
+                    {
+                        "label": "Discord",
+                        "href": "https://discord.gg/pBeEdwXzXm"
+                    }
+                ]
+            }
+        ]
     },
     "errors": {
         "404": {
             "redirect": false,
             "title": "That's a swing and a miss!",
             "description": "Seems that wasn't found. Try again?"
+        }
+    },
+    "description": "The UI Kit for Discord that saves boilerplate!",
+    "styling": {
+        "codeblocks": {
+            "theme": {
+                "dark": "dark-plus",
+                "light": "light-plus"
+            }
         }
     }
 }

@@ -1,0 +1,24 @@
+---
+title: Only One Instance
+---
+
+It's recommended to only have one instance of `UiClient` at a time, mainly for simplicity. You can always reuse your current client. Here's an example of how to do it.
+
+```typescript src/index.ts
+import { UiClient } from "@discord-ui-kit/discord.js";
+
+export const ui = new UiClient(); // This will be available with an import!
+```
+
+```typescript src/commands/something-risky.ts
+import { ui } from "../"; // Shorthand for ../index.ts
+
+(async (message) => {
+    const actionRow = ui.actionRows.confirmCancel("confirm", "cancel");
+
+    await message.reply({
+        content: "Are you sure? This cannot be undone!",
+        components: [actionRow],
+    });
+})();
+```

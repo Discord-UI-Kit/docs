@@ -1,0 +1,32 @@
+---
+title: "Embed"
+description: "The fabled embed, full of many nice things we love. Discord UI Kit makes them really easy to create!"
+---
+
+<Warning>
+    This requires `Embeds` to be part of your includes. If you initialized
+    `UiClient` without any includes, it's included anyway, alongside everything
+    else.
+</Warning>
+
+There are 5 types of embeds that Discord UI Kit exposes, but you can always create a fully custom one. Let's see each one!
+
+<Note>We won't be covering the colors here since [they can be modified](/customization/customizing-colors).</Note>
+
+<AccordionGroup>
+    <Accordion title="Info">
+        Information is a pretty big reason for an embed, you probably don't want
+        to spit all that information in a single unformatted message.
+
+        ```typescript botinfo.ts
+        ```
+    </Accordion>
+    <Accordion title="Warning"></Accordion>
+    <Accordion title="Danger"></Accordion>
+    <Accordion title="Error"></Accordion>
+    <Accordion title="Success"></Accordion>
+</AccordionGroup>
+
+## Custom Embed
+
+Any custom embed is completely possible, we expose a `.custom` method specifically for that!

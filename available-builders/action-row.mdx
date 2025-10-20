@@ -1,0 +1,182 @@
+---
+title: "Action Row"
+description: "An action row hosts your components, we feel like making them easier to make is really useful!"
+---
+
+<Note>Action rows are always included with an instance of `UiClient`, no matter what you set in `options.include`.</Note>
+
+We define some really easy methods to make action rows. Let's see a few!
+
+## Predefined
+
+There are some predefined action rows for common stuff, like confirm/cancel, yes/no, etc.
+
+<Danger>These use the **ButtonBuilders** and thus, if `Buttons` is not included in the UiClient, the UiClient will throw an error!</Danger>
+
+<Info>
+    These predefined action rows are accessed by doing:
+    ```typescript
+    // Where ui is your instance of UiClient.
+    ui.actionRows.predefined
+    ```
+</Info>
+
+<AccordionGroup>
+    <Accordion title="Only Confirm">
+        Gives one button, a confirm button!
+
+        ```typescript my-command.ts
+        async function myCommand(message: Message) {
+            // One string is needed. The custom ID for the button!
+            const actionRow = ui.actionRows.predefined.onlyConfirm("confirm"); // returns ActionRowBuilder<ButtonBuilder>
+            await message.reply({
+                content: "Confirm within 10 seconds!",
+                components: [actionRow]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Confirm/Cancel">
+        A nice row of a confirm and cancel button together!
+
+        ```typescript my-command.ts
+        async function myCommand(message: Message) {
+            // Intakes 2 strings, one for the custom ID of the confirm button
+            // and one more for the custom ID of the cancel button.
+            const actionRow = ui.actionRows.predefined.confirmCancel("confirm", "cancel"); // returns ActionRowBuilder<ButtonBuilder>
+            await message.reply({
+                content: "This is a risky operation, are you sure?",
+                components: [actionRow]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Yes/No">
+        Similar to **Confirm/Cancel**, except the buttons say **Yes** and **No** respectively.
+
+        ```typescript my-command.ts
+        async function myCommand(message: Message) {
+            // Intakes the same arguments as confirmCancel.
+            // One string for the custom ID of the yes button and vice versa.
+            const actionRow = ui.actionRows.predefined.yesNo("yes", "no"); // returns ActionRowBuilder<ButtonBuilder>
+            await message.reply({
+                content: "This is a risky operation, are you sure?",
+                components: [actionRow]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Pagination">
+        Pages are super useful to save fields in an embed for example, but making buttons for them are really repetitive. We have a predefined action row for that though!
+
+        ```typescript my-paginated-command.ts
+        async function myPaginatedCommand(message: Message) {
+            // Takes a minimum of 3 arguments. All custom IDs for the 3 buttons this returns.
+            const actionRow = ui.actionRows.predefined.pagination("left", "stop", "right"); // returns ActionRowBuilder<ButtonBuilder>
+            await message.reply({
+                content: "some very long text that is split into pages",
+                components: [actionRow]
+            });
+
+            // Then pagination logic or whatever.
+        }
+        ```
+    </Accordion>
+</AccordionGroup>
+
+## Other Creation Methods
+
+There are also some generic methods to make it really easy to just make
+an action row.
+
+<Info>
+    Both methods here return an ActionRowBuilder with the type being whatever component type you passed in.
+
+    **For example:**
+    
+    `ui.actionRows.singleComponent(ui.buttons.primary("test", "Click Me!"))` => `ActionRowBuilder<ButtonBuilder>`
+</Info>
+
+<Note>
+    Both methods accept a generic type (`<T>`), but TypeScript (if you're using that), and by extension, JavaScript, will understand the type as the first argument that is passed in.
+
+    **Proven by the info card above.**
+</Note>
+
+<AccordionGroup>
+    <Accordion title="Single Component">
+        If you only need one component in a row, this is the method to call!
+
+        ```typescript myCommand.ts
+        async function myCommand(message: Message) {
+            const actionRow = ui.actionRows.singleComponent(ui.buttons.primary("test", "Click Me!"));
+            await message.reply({
+                content: "I have a button on me, pretty neat, huh?",
+                components: [actionRow]
+            });
+        }
+        ```
+    </Accordion>
+    <Accordion title="Multiple Components">
+        Need multiple components? Call this method!
+
+        <Warning>An action row can only hold **one type of component**. If you need a different type, you'll have to make another row.</Warning>
+
+        ```typescript myCommand.ts
+        async function myCommand(message: Message) {
+            const actionRow = ui.actionRows.multiComponents(
+                ui.buttons.primary("test", "Click Me!"),
+                ui.buttons.link("https://example.com", "My Website"),
+
+                // You cannot do this though!
+                // ui.selectMenus.channel(/* ... */)
+            );
+            await message.reply({
+                content: "I have some buttons on me, pretty neat, huh?",
+                components: [actionRow]
+            });
+        }
+        ```
+    </Accordion>
+</AccordionGroup>
+
+## Other Helpful Methods
+
+The last thing I'd like to touch on, is the other two methods exposed.
+
+<AccordionGroup>
+    <Accordion title="Disable All Components">
+        Disables all components in an action row. This intakes an action row, and then returns it with all the components disabled.
+
+        ```typescript myCommand.ts
+        async function myCommand(message: Message) {
+            let actionRow = ui.actionRows.predefined.confirmCancel("confirm", "cancel");
+            const message = await message.reply({
+                content: "Are you sure?",
+                components: [actionRow],
+            });
+
+            // Collector logic and stuff.
+
+            actionRow = ui.actionRows.disableAllComponents(actionRow);
+            await message.edit({
+                content: "No more clicking!",
+                components: [actionRow]
+            })
+        }
+        ```
+    </Accordion>
+    <Accordion title="Enable All Components">
+        Does the exact opposites of `disableAllComponents`, intakes an action row, then returns it with all components enabled.
+
+        ```typescript myCommand.ts
+        // Builds off the disableAllComponents example!
+
+        actionRow = ui.actionRows.enableAllComponents(actionRow);
+        await message.edit({
+            content: "All right, I'm just messing with ya. Go ahead. :)",
+            components: [actionRow]
+        });
+        ```
+    </Accordion>
+</AccordionGroup>
