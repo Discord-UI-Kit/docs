@@ -1,6 +1,6 @@
 # Discord UI Kit Docs
 
-The documentation for Discord UI Kit, made with [Minilify](https://www.mintlify.com/)!
+The documentation for Discord UI Kit, made with [Mintlify](https://www.mintlify.com/)!
 
 ## Website
 
